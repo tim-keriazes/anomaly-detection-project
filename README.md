@@ -1,4 +1,4 @@
-group readme
+### Curriculum Logs
 
 ##### I have some questions for you that I need answered before the board meeting Thursday afternoon. My questions are listed below; however, if you discover anything else important that I didn’t think to ask, please include that as well.
 
