@@ -28,7 +28,7 @@ def handle_nulls(df):
     return df
 
 
-def parse_path(path):
+# def parse_path(path):
     #
     parts = path.split("/")
     output = {}
@@ -48,17 +48,17 @@ def parse_path(path):
         output['primary_topic'] = parts[0]
         output['subtopic'] = parts[1]
         output['tertiary'] = parts[2]
-    return pd.DataFrame(output)
+    return pd.Series(output)
     
 
-def apply_path(df):
+# def apply_path(df):
     #
     tf = df.path.apply(parse_path)
     df = df.merge(tf, how = 'inner', left_index = True, right_index = True)
     return df
 
 
-def prepare_logs(df, path):
+def prepare_logs(df):
     '''
     Drops unnecessary columns
     Separates nulls into separate df
@@ -71,8 +71,8 @@ def prepare_logs(df, path):
 
     df = handle_nulls(df)
 
-    df = parse_path(path)
+    # df = parse_path(path)
 
-    df = apply_path(df)
+    # df = apply_path(df)
 
     return df, df_admin
