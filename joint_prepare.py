@@ -29,6 +29,7 @@ def handle_nulls(df):
 
 
 def parse_path(path):
+    # Splits df.path string into parts
     parts = path.split("/")
     output = {}
     if len(parts) == "/":
@@ -51,7 +52,7 @@ def parse_path(path):
     
 
 def apply_path(df):
-    #
+    # Applies above function to create subsequent dataframe(tf), merges dfs together to complete prep
     tf = df.path.apply(parse_path)
     df = df.merge(tf, how = 'inner', left_index = True, right_index = True)
     return df
@@ -62,7 +63,7 @@ def prepare_logs(df):
     Drops unnecessary columns
     Separates nulls into separate df
     Handles Nulls
-    splits path, parses into components
+    Splits path, parses into components
     '''
 
     df = drop_columns(df)
