@@ -29,13 +29,12 @@ def handle_nulls(df):
 
 
 def parse_path(path):
-    #
     parts = path.split("/")
     output = {}
-    if len(parts) == 0:
+    if len(parts) == "/":
         output['primary_topic'] = 'None'
         output['subtopic'] = 'None'
-        output['tertiary'] = 'None'
+        output['tertiary'] = 'None'  
     elif len(parts) == 1:
         output['primary_topic'] = parts[0]
         output['subtopic'] = 'None'
@@ -48,7 +47,7 @@ def parse_path(path):
         output['primary_topic'] = parts[0]
         output['subtopic'] = parts[1]
         output['tertiary'] = parts[2]
-    return pd.DataFrame(output)
+    return pd.Series(output)
     
 
 def apply_path(df):
@@ -58,11 +57,12 @@ def apply_path(df):
     return df
 
 
-def prepare_logs(df, path):
+def prepare_logs(df):
     '''
     Drops unnecessary columns
     Separates nulls into separate df
     Handles Nulls
+    splits path, parses into components
     '''
 
     df = drop_columns(df)
@@ -71,8 +71,6 @@ def prepare_logs(df, path):
 
     df = handle_nulls(df)
 
-    df = parse_path(path)
-
     df = apply_path(df)
-
+    
     return df, df_admin
