@@ -18,7 +18,7 @@ def drop_columns(df):
 def create_ancillary_df(df):
     # In order to drop nulls, we save rows with nulls in separate df
     df_admin = df[df.program_id.isnull()]
-    return df
+    return df_admin
 
 
 def handle_nulls(df):    
@@ -28,7 +28,37 @@ def handle_nulls(df):
     return df
 
 
-def prepare_logs(df):
+def parse_path(path):
+    #
+    parts = path.split("/")
+    output = {}
+    if len(parts) == 0:
+        output['primary_topic'] = 'None'
+        output['subtopic'] = 'None'
+        output['tertiary'] = 'None'
+    elif len(parts) == 1:
+        output['primary_topic'] = parts[0]
+        output['subtopic'] = 'None'
+        output['tertiary'] = 'None'
+    elif len(parts) == 2:
+        output['primary_topic'] = parts[0]
+        output['subtopic'] = parts[1]
+        output['tertiary'] = 'None'
+    else: 
+        output['primary_topic'] = parts[0]
+        output['subtopic'] = parts[1]
+        output['tertiary'] = parts[2]
+    return pd.DataFrame(output)
+    
+
+def apply_path(df):
+    #
+    tf = df.path.apply(parse_path)
+    df = df.merge(tf, how = 'inner', left_index = True, right_index = True)
+    return df
+
+
+def prepare_logs(df, path):
     '''
     Drops unnecessary columns
     Separates nulls into separate df
@@ -40,5 +70,9 @@ def prepare_logs(df):
     df_admin = create_ancillary_df(df)
 
     df = handle_nulls(df)
+
+    df = parse_path(path)
+
+    df = apply_path(df)
 
     return df, df_admin
