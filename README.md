@@ -1,3 +1,7 @@
+## Exploratory project, working to answer hypothetical questions for a stakeholder by examining anomalies between data collected on the web access of content of different cohorts. Acquired from SQL and utilized pandas, numpy, matplotlib, seaborn libraries to answer questions such as which lessons had the most traffic across cohorts, which lessons particular cohorts referred to that others didn’t, rate of access of content by users, suspicious activity or unauthorized access, metrics of most/least accessed lessons per cohort.
+
+
+
 ### Curriculum Logs
 
 ##### I have some questions for you that I need answered before the board meeting Thursday afternoon. My questions are listed below; however, if you discover anything else important that I didn’t think to ask, please include that as well.
